@@ -1,36 +1,43 @@
-# Initializing the Graph Class
 class Graph:
     def __init__(self, vertices):
-        self.V = vertices
-        self.graph = []
-        self.nodes = ['GRU', 'GIG', 'BSB', 'SSA', 'VCP', 'CNF', 'FOR', 'BEL', 'POA', 'CGB', 'MAO', 'SDU', 'CWB', 'GYN', 'RAO', 'FLN', 'VIX', 'UDI', 'AJU', 'MCZ', 'NAT', 'IGU', 'JPA', 'REC', 'SLZ', 'CGH', 'THE', 'BPS', 'MGF', 'PLU', 'IOS', 'LDB', 'CFB', 'SNZ', 'JOI', 'JTC', 'FLB', 'BYO', 'CPV', 'ARS', 'SMT', 'POJ', 'ATM', 'PHI', 'JRN',
-                      'PIV', 'SSCI', 'CMT', 'CZS', 'MCP', 'MEA', 'TUZ', 'PTQ', 'LCB', 'OAL', 'QCN', 'GUJ', 'FEJ', 'JDO', 'JLS', 'NVT', 'TUR', 'DIQ', 'GMS', 'BSS', 'OTT', 'AAI', 'DNO', 'IJU', 'XAP', 'SSO', 'PNZ', 'QAR', 'ALQ', 'QAC', 'BVB', 'MII', 'SOD', 'VOT', 'QRE', 'ERM', 'FRC', 'BAT', 'PMW', 'IDO', 'NTM', 'CZB', 'CCM', 'RDC', 'CCI', 'RIA']
+        self.vertices = vertices
+        self.grafo = []
+        self.nos = ['GMS', 'BVB', 'CCI', 'BAT', 'SOD', 'RAO', 'CWB', 'JOI', 'UDI', 'POJ', 'IJU', 'JTC', 'DIQ', 'MCZ',
+                      'ERM', 'FLB', 'TUR', 'BPS', 'IDO', 'CCM', 'BSS', 'SDU', 'CMT', 'MEA', 'PTQ', 'QCP', 'VCP', 'LDB',
+                      'PMW', 'CGB', 'RIA', 'MGF', 'CZB', 'PNZ', 'GRU', 'MII', 'JLS', 'NAT', 'NVT', 'SLZ', 'FOR', 'ARS',
+                      'AJU', 'CGR', 'CFB', 'JPA', 'LCB', 'IOS', 'CGH', 'ATM', 'VOT', 'GUJ', 'BYO', 'THE', 'MCP', 'SSA',
+                      'GYN', 'AAI', 'GIG', 'QAC', 'CZS', 'PIV', 'SMT', 'POA', 'FLN', 'SNZ', 'IGU', 'RDC', 'OYK', 'CNF',
+                      'TUZ', 'OAL', 'JDO', 'MAO', 'ALQ', 'XAP', 'FEJ', 'REC', 'OTT', 'QCN', 'PLU', 'JRN', 'BEL', 'DNO',
+                      'FRC', 'PHI', 'SSO', 'BSB', 'CPV', 'TRQ', 'VIX']
 
-    def add_edge(self, s, d, w):
-        self.graph.append([s, d, w])
+    def adicionar_aresta(self, inicio, fim, peso):
+        self.grafo.append([inicio, fim, peso])
 
-    def print(self):
-        print(self.graph)
+    def mostrar_todos_aeroportos(self, distancia, origem):
+        for chave, valor in distancia.items():
+            if valor != float("Inf") and valor != 0:
+                print(origem + ' ---> ' + chave, ':', f'{valor:.2f} Km')
 
-    # Implementing Bellman-Ford's Algorithm
-
-    def bellmanFord(self, src):
-        dist = {i: float("Inf") for i in self.nodes}
-        dist[src] = 0
-
-        for _ in range(self.V-1):
-            for s, d, w in self.graph:
-                if dist[s] != float("Inf") and dist[s] + w < dist[d]:
-                    dist[d] = dist[s] + w
-
-        for s, d, w in self.graph:
-            if dist[s] != float("Inf") and dist[s] + w < dist[d]:
-                print("Graph contains negative cycle")
-                return
-
-        print("Distance of Vertex from Source")
-        for key, value in dist.items():
-            print('  ' + key, ' :    ', value)
+    def bellman_ford(self, inicio, final=''):
+        if (inicio in self.nos) and ((final == '') or (final in self.nos)):
+            origem = inicio
+            distancia = {i: float("Inf") for i in self.nos}
+            distancia[inicio] = 0
+            for _ in range(self.vertices - 1):
+                for inicio, fim, peso in self.grafo:
+                    if distancia[inicio] != float("Inf") and distancia[inicio] + peso < distancia[fim]:
+                        distancia[fim] = distancia[inicio] + peso
+            for inicio, fim, peso in self.grafo:
+                if distancia[inicio] != float("Inf") and distancia[inicio] + peso < distancia[fim]:
+                    return
+            if final == '':
+                print("Distância em Km entre os aeroportos")
+                self.mostrar_todos_aeroportos(distancia, origem)
+            else:
+                print(f'Distância em Km entre os aeroportos {origem} e {final}.')
+                print(f'{origem} ---> {final} : {distancia[final]:.2f} Km')
+        else:
+            print('Parâmetros inválidos!')
 
 
 grafo = Graph(93)
@@ -39,14 +46,12 @@ try:
     distancias = open("database.txt", "r")
 
     with distancias:
-        for line in distancias:
-            origem, destino, distancia = line.split()
+        for linha in distancias:
+            origem, destino, distancia = linha.split()
 
-            grafo.add_edge(origem, destino, float(distancia))
+            grafo.adicionar_aresta(origem, destino, float(distancia))
 
 except FileNotFoundError as msg:
     print(msg)
 
-grafo.bellmanFord("GRU")
-
-# grafo.print()
+grafo.bellman_ford("GRU")
