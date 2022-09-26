@@ -24,6 +24,7 @@ header {
 
 .h2-header {
     color: #e8f1f2;
+    margin-bottom: 40px;
 }
 
 .button-header-calcular_distancia {
@@ -41,7 +42,7 @@ header {
 }
 
 main {
-    margin-top: 160px;
+    margin-top: 180px;
     margin-bottom: 150px;
     text-align: center;
     width: 100%;
