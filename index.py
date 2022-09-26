@@ -1,5 +1,6 @@
 from js import alert
-# caso queiramos plotar o grafo, descomentamos essas linhas:
+# caso queiramos plotar o grafo a partir do  nosso terminal, descomentamos essas linhas 2  e  comentamos a linha 1:
+# Atenção: garanta que o python, o networkx e matplotlib.pyplot estejam instalados na  sua máquina para que o plote do grafo funcione
 # import networkx as nx
 # import matplotlib.pyplot as plt
 
@@ -52,7 +53,8 @@ class Graph:
 
 
 grafo = Graph(93)
-# Caso queiramos criar as arestas a partir do txx, utilizamos o código:
+# Caso queiramos criar as arestas a partir do txt, descomentamos os códigos das linha 57 a 66. Além disso, comentamos os código da linha 19 e descomentamos da  linah 18:
+# Atenção: caso isso seja feito, não conseguiremos  abrir o nosso html no browser localmente
 
 # try:
 #     distancias = open("database.txt", "r")
@@ -87,16 +89,21 @@ def calcular_distancia(*ags, **kags):
     input_aeroportoChegada.element.value = ""
 
 
-# Para plotar o grafo, descomentamos os códigos
-
+# caso queiramos plotar o grafo a partir do nosso terminal, descomentamos das linhas 92 a 102
+# Atenção: garanta que o python, o networkx e matplotlib.pyplot estejam instalados na  sua máquina para que o plote do grafo funcione
+# Atenção: caso isso seja feito, não conseguiremos  abrir o nosso html no browser localmente
 # G = nx.DiGraph()
+
+
 # def mostrar_grafo():
 #     for i in grafo.grafo:
 #         G.add_edge(i[0], i[1])
 
 #     pos = nx.spring_layout(G)
-#     nx.draw_networkx_nodes(G, pos, node_size=600, node_color="plam")
-#     nx.draw_networkx_edges(G, pos, edgelist=G.edges(), edge_color='grey')
+#     nx.draw_networkx_nodes(G, pos, node_size=600)
+#     nx.draw_networkx_edges(G, pos, edgelist=G.edges())
 #     nx.draw_networkx_labels(G, pos)
 #     plt.show()
+
+
 # mostrar_grafo()
