@@ -26,7 +26,7 @@ header {
     color: #e8f1f2;
 }
 
-/* .button-header-calcular_distancia {
+.button-header-calcular_distancia {
     background-color: #1b98e0;
     padding: 15px;
     color: white;
@@ -38,7 +38,7 @@ header {
 .button-header-calcular_distancia:hover {
     background-color: white;
     color: #13293D;
-} */
+}
 
 main {
     margin-top: 160px;
