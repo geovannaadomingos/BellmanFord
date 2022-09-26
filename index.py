@@ -41,6 +41,8 @@ class Graph:
                     return
             if final == '':
                 return self.mostrar_todos_aeroportos(distancia, origem)
+            elif distancia[final] == float("Inf"):
+                return 'Sem conexão entre os aeroportos!'
             else:
                 return f'{origem} ---> {final} : {distancia[final]:.2f} Km'
         else:
@@ -61,6 +63,8 @@ def calcular_distancia(*ags, **kags):
     valor = grafo.bellman_ford(aeroportoOrigem, aeroportoChegada)
     if valor == "Parâmetros inválidos!":
         alert("Ops, parâmetros inválidos!")
+    elif valor == "Sem conexão entre os aeroportos!":
+        alert("Ops, parece que esses aeroportos não possuem conexão entre si :(")
     else:
         div_main_distancias.element.innerText = ""
         div_main_distancias.element.innerText += f"{valor}\n"
